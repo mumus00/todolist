@@ -80,3 +80,13 @@ Route::get('/', function(){
 Route::get('/register', function(){
 	return redirect('/');
 });
+
+Route::get('/login2', function(){
+    return view('auth.login2');
+});
+
+Route::get('/profile', function(){
+    return view('pm.profile');
+})->name('profile');
+
+

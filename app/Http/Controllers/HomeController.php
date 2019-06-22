@@ -57,9 +57,9 @@ class HomeController extends Controller
           })->orWhere('name', 'like', '%'.$search.'%')->orderBy('name')->get();
         // dd($jobs);
         if(Auth::User()->role==1)
-            return view('pm_home', compact('jobs'));
+            return view('pm.index', compact('jobs'));
         else
-            return view('pro_home', compact('jobs'));
+            return view('pro.index', compact('jobs'));
     }
 
     public function searchUser($username){
@@ -67,7 +67,7 @@ class HomeController extends Controller
             $user->where('name', 'like', '%'.$username.'%');
           })->orderBy('name')->get();
         if(Auth::User()->role==1)
-            return view('pm_home', compact('jobs'));
+            return view('pm.index', compact('jobs'));
     }
 
     public function mytodo(){
@@ -75,7 +75,7 @@ class HomeController extends Controller
         $jobs = Job::where('user_id', $user_id)
         ->orderBy('confirmed')->get();
 
-        return view('pro_tugas', compact('jobs'));
+        return view('pro.tugas', compact('jobs'));
     }
 
     public function selesai($id_job){

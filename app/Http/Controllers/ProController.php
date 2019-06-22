@@ -18,11 +18,11 @@ class ProController extends Controller
         $this->middleware('auth');
         $this->middleware('programmer');
     }
-    
+
     public function show(){
         $jobs = Job::where('user_id',0)->where('confirmed',0)->get();
 
-        return view('pro_home',compact('jobs'));
+        return view('pro.index',compact('jobs'));
     }
 
     public function ambil($id){

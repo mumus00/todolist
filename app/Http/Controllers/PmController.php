@@ -23,20 +23,20 @@ class PmController extends Controller
     public function index()
     {
         $jobs = Job::all();
-        
-        return view('pm_home', compact('jobs'));
+
+        return view('pm.index', compact('jobs'));
     }
 
     public function showProject(){
         $projects = Project::all();
 
-        return view('pm_project', compact('projects'));
+        return view('pm.project', compact('projects'));
     }
 
     public function showProgrammer(){
         $programmers = User::all();
 
-        return view('pm_manajemen', compact('programmers'));
+        return view('pm.manajemen', compact('programmers'));
     }
 
     public function showDetail($id_project){
@@ -44,7 +44,7 @@ class PmController extends Controller
 
         $jobs = Job::where('project_id',$id_project)->get();
 
-        return view('pm_detailProject')
+        return view('pm.detailProject')
             ->with(compact('jobs'))
             ->with(compact('project'));
     }
@@ -56,7 +56,7 @@ class PmController extends Controller
 
         $projects = Project::all();
 
-        return view('pm_formEditTodo')
+        return view('pm.formEditTodo')
             ->with(compact('job'))
             ->with(compact('programmers'))
             ->with(compact('projects'));
@@ -65,19 +65,19 @@ class PmController extends Controller
     public function editProgrammer($id){
         $programmer = User::find($id);
 
-        return view('pm_formEditProgrammer', compact('programmer'));
+        return view('pm.formEditProgrammer', compact('programmer'));
     }
 
     public function editProject($id){
         $project = Project::find($id)->first();
 
-        return view('pm_formEditProject', compact('project'));
+        return view('pm.formEditProject', compact('project'));
     }
 
     public function editDetail($id_job){
         $job = Job::find($id_job);
 
-        return view('pm_formEditDetail', compact('job'));
+        return view('pm.formEditDetail', compact('job'));
     }
 
     public function update(Request $request, $id){
@@ -118,7 +118,7 @@ class PmController extends Controller
     public function delete($id){
         $job = Job::find($id);
         $job->delete();
-        
+
         return redirect('/pm');
     }
 
@@ -150,23 +150,23 @@ class PmController extends Controller
         $programmers = User::all();
         $projects = Project::all();
 
-        return view('pm_formTambahTodo', ['projects'=>$projects, 'programmers'=>$programmers]);
+        return view('pm.formTambahTodo', ['projects'=>$projects, 'programmers'=>$programmers]);
     }
 
     public function tambahProgrammer(){
         $statuss = DB::table('status')->get();
 
-        return view('pm_formTambahProgrammer', ['statuss'=>$statuss]);
+        return view('pm.formTambahProgrammer', ['statuss'=>$statuss]);
     }
 
     public function tambahProject(){
-        return view('pm_formTambahProject');
+        return view('pm.formTambahProject');
     }
 
     public function tambahDetail($id_project){
         $project = Project::find($id_project);
 
-        return view('pm_formTambahDetail', compact('project'));
+        return view('pm.formTambahDetail', compact('project'));
     }
 
     public function add(Request $request){
