@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 	<h1>{{$project->name}}</h1>
 	<button><a href="/detail/tambah/{{$project->id}}">Add To Do Project </a></button>
 		<table border="1px">
 			<tr>
-				<th>No</th>			
+				<th>No</th>
 				<th>To Do</th>
 				<th>Programmer</th>
 				<th>Aksi</th>

@@ -16,6 +16,7 @@
         <link rel="stylesheet" id="css-bootstrap" href="{{ asset('css/bootstrap.css') }}" />
         <link rel="stylesheet" id="css-app" href="{{ asset('css/app2.css') }}" />
         <!-- End Stylesheets -->
+        @stack('styles')
     </head>
 
     <body class="app-ui layout-has-drawer layout-has-fixed-header">
@@ -142,5 +143,6 @@
         <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
         <script src="{{ asset('js/core/jquery.min.js') }}"></script>
         <script src="{{ asset('js/core/bootstrap.min.js') }}"></script>
+        @stack('script')
     </body>
 </html>

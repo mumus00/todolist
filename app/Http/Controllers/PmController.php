@@ -24,13 +24,13 @@ class PmController extends Controller
     {
         $jobs = Job::all();
 
-        return view('pm.index', compact('jobs'));
+        return view('pm.todo.index', compact('jobs'));
     }
 
     public function showProject(){
         $projects = Project::all();
 
-        return view('pm.project', compact('projects'));
+        return view('pm.project.index', compact('projects'));
     }
 
     public function showProgrammer(){
@@ -56,7 +56,7 @@ class PmController extends Controller
 
         $projects = Project::all();
 
-        return view('pm.formEditTodo')
+        return view('pm.todo.edit')
             ->with(compact('job'))
             ->with(compact('programmers'))
             ->with(compact('projects'));
@@ -150,7 +150,7 @@ class PmController extends Controller
         $programmers = User::all();
         $projects = Project::all();
 
-        return view('pm.formTambahTodo', ['projects'=>$projects, 'programmers'=>$programmers]);
+        return view('pm.todo.tambah', ['projects'=>$projects, 'programmers'=>$programmers]);
     }
 
     public function tambahProgrammer(){

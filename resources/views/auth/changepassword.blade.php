@@ -1,9 +1,9 @@
 @extends('layouts.dashboard')
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container" >
+        <div class="row" style="display: flex; justify-content: center;">
             <div class="col-md-8">
-                <div class="card">
+                <div class="card" style="padding-bottom:5px;">
                     <div class="card-header">Change password</div>
 
                     <div class="card-body">

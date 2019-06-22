@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 		<form action="/detail/edit/update/{{$job->project->id}}" method="POST">

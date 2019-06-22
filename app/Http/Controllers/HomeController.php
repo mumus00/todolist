@@ -57,7 +57,7 @@ class HomeController extends Controller
           })->orWhere('name', 'like', '%'.$search.'%')->orderBy('name')->get();
         // dd($jobs);
         if(Auth::User()->role==1)
-            return view('pm.index', compact('jobs'));
+            return view('pm.todo.index', compact('jobs'));
         else
             return view('pro.index', compact('jobs'));
     }
@@ -67,7 +67,7 @@ class HomeController extends Controller
             $user->where('name', 'like', '%'.$username.'%');
           })->orderBy('name')->get();
         if(Auth::User()->role==1)
-            return view('pm.index', compact('jobs'));
+            return view('pm.todo.index', compact('jobs'));
     }
 
     public function mytodo(){

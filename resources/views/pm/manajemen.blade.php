@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 		<form method="GET" action="/programmer/tambah">
