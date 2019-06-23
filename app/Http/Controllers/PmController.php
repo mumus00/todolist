@@ -36,7 +36,7 @@ class PmController extends Controller
     public function showProgrammer(){
         $programmers = User::all();
 
-        return view('pm.manajemen', compact('programmers'));
+        return view('pm.user.index', compact('programmers'));
     }
 
     public function showDetail($id_project){
@@ -71,7 +71,7 @@ class PmController extends Controller
     public function editProject($id){
         $project = Project::find($id)->first();
 
-        return view('pm.formEditProject', compact('project'));
+        return view('pm.project.edit', compact('project'));
     }
 
     public function editDetail($id_job){
@@ -154,13 +154,11 @@ class PmController extends Controller
     }
 
     public function tambahProgrammer(){
-        $statuss = DB::table('status')->get();
-
-        return view('pm.formTambahProgrammer', ['statuss'=>$statuss]);
+        return view('pm.formTambahProgrammer');
     }
 
     public function tambahProject(){
-        return view('pm.formTambahProject');
+        return view('pm.project.tambah');
     }
 
     public function tambahDetail($id_project){

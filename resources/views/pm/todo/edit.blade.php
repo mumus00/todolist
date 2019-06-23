@@ -5,7 +5,7 @@
         <div class="col-md-8">
             <div class="card" style="padding-bottom:5px;">
                 <div class="card-header"> Edit Todo </div>
-                <div class="card-body">
+                <div class="card-body" style="border-top:2px solid #eee; padding-top:20px;">
                     <form class="form-horizontal" action="/todo/edit/update/{{$job->id}}" method="POST">
                         {{ csrf_field() }}
                         @method('PUT')
@@ -28,13 +28,16 @@
                             <label for="programmer" class="col-md-4 control-label">Programmer</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="programmer" required>
-                                    @foreach($programmers as $programmer)
+                                <select class="form-control" name="programmer">
+                                    <option value="0">NOT SELECTED</option>
+                                    @forelse($programmers as $programmer)
                                     <option value="{{$programmer->id}}"
-                                        {{$programmer->id == $job->user_id ? 'selected' : '' }}>
+                                        {{$programmer->id==auth()->user()->id?'selected':''}}>
                                         {{$programmer->name}}
                                     </option>
-                                    @endforeach
+                                    @empty
+
+                                    @endforelse
                                 </select>
                             </div>
                         </div>

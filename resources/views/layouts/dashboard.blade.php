@@ -34,24 +34,24 @@
                         <nav class="drawer-main">
                             <ul class="nav nav-drawer">
                                 @if(Auth::User()->isAdmin())
-                                <li class="nav-item active">
+                                <li class="nav-item {{ Request::is('pm*') ? 'active' : '' }}">
                                     <a href="/pm"><i class="ion-ios-speedometer-outline"></i>Dashboard</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item {{ Request::is('project*') ? 'active' : '' }}">
                                     <a href="/project"><i class="ion-ios-briefcase"></i>Project</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="/manage"><i class="ion-ios-people"></i>Manage User</a>
+                                <li class="nav-item {{ Request::is('programmer*') ? 'active' : '' }}">
+                                    <a href="/programmer"><i class="ion-ios-people"></i>Manage User</a>
                                 </li>
                                 @else
-                                <li class="nav-item active">
+                                <li class="nav-item {{ Request::is('pro*') ? 'active' : '' }}">
                                     <a href="/pro"><i class="ion-ios-speedometer-outline"></i>Dashboard</a>
                                 </li>
                                 @endif
-                                <li class="nav-item">
+                                <li class="nav-item {{ Request::is('mytodo*') ? 'active' : '' }}">
                                     <a href="/mytodo"><i class="ion-ios-contact"></i>My To Do</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item {{ Request::is('changePassword*') ? 'active' : '' }}">
                                     <a href="/changePassword"><i class="ion-ios-redo"></i>Change Password</a>
                                 </li>
                             </ul>
