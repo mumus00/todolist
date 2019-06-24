@@ -11,19 +11,19 @@ Route::get('projects/todos/{id_project}','JobController@showByProject')->name('b
 Route::get('projects/todos/create/{id_project}','JobController@createByProject')->name('byProject.create');
 Route::post('projects/todos/store/{id_project}', 'JobController@storeByProject')->name('byProject.store');
 Route::get('projects/todos/{id_job}/edit', 'JobController@editByProject')->name('byProject.edit');
-Route::put('projects/todos/{id_project}', 'JobController@updateByProject')->name('byProject.update');
+Route::put('projects/todos/{id_job}', 'JobController@updateByProject')->name('byProject.update');
 Route::delete('projects/todos/{id_job}', 'JobController@destroyByProject')->name('byProject.destroy');
 // Route::post('projects/todos/store/{id}')
 
 //admin manajemen user
 Route::resource('programmers', 'UserController');
 //Untuk Job tetapi menggunakan id user
-Route::get('/detail/{id_project}', 'PmController@showDetail');
-Route::get('/detail/tambah/{id_project}', 'PmController@tambahDetail');
-Route::post('/detail/add/{id}', 'PmController@addDetail');
-Route::get('/detail/edit/{id_job}', 'PmController@editDetail');
-Route::put('/detail/edit/update/{id_project}', 'PmController@updateDetail');
-Route::delete('/detail/delete/{id}', 'PmController@deleteDetail');
+Route::get('programmers/todos/{id_user}','JobController@showByUser')->name('byUser.show');
+Route::get('programmers/todos/create/{id_user}','JobController@createByUser')->name('byUser.create');
+Route::post('programmers/todos/store/{id_user}', 'JobController@storeByUser')->name('byUser.store');
+Route::get('programmers/todos/{id_job}/edit', 'JobController@editByUser')->name('byUser.edit');
+Route::put('programmers/todos/{id_job}', 'JobController@updateByUser')->name('byUser.update');
+Route::delete('programmers/todos/{id_job}', 'JobController@destroyByUser')->name('byUser.destroy');
 
 //Ganti Password
 Route::get('/changePassword','HomeController@showChangePasswordForm');

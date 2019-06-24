@@ -61,7 +61,7 @@
                     <form id="delete-form" action="{{ route('todos.destroy',$job->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm">Delete</button>
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                     </form>
                 </div>
             </td>

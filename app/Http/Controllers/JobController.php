@@ -132,4 +132,52 @@ class JobController extends Controller
         $job->delete();
         return redirect()->route('byProject.show',$project->id);
     }
+
+    //Todo Berdasarkan Project
+    public function showByUser($id){
+        $user = User::find($id);
+        $jobs = Job::where('user_id',$id)->get();
+        return view('pm.byUser.index', compact('jobs','user'));
+    }
+
+    public function createByUser($id){
+        $programmer = User::find($id);
+        $projects = Project::all();
+        return view('pm.byUser.tambah', compact('projects','programmer'));
+    }
+
+    public function storeByUser(Request $request, $id){
+        $job = new Job([
+            'name' => $request->todo,
+            'project_id' => $request->project,
+            'user_id' => $id
+        ]);
+        $job->save();
+
+        return redirect()->route('byUser.show',$id);
+    }
+
+    public function editByUser($id){
+        $job = Job::find($id);
+        $projects = Project::all();
+        $programmer = User::find($job->user_id);
+        return view('pm.byUser.edit', compact('job','projects','programmer'));
+    }
+
+    public function updateByUser(Request $request, $id){
+        $job = Job::find($id);
+        $job->name = $request->todo;
+        $job->project_id = $request->project;
+        $job->user_id = $request->programmer;
+        $job->save();
+
+        return redirect()->route('byUser.show',$request->programmer);
+    }
+
+    public function destroyByUser($id){
+        $job = Job::find($id);
+        $programmer = User::find($job->user_id);
+        $job->delete();
+        return redirect()->route('byUser.show',$programmer->id);
+    }
 }

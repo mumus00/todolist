@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<h1>{{$project->name}}</h1>
+<h1>{{$user->name}}</h1>
 
 <div class="row" style="margin-bottom:20px;">
     <div class="col-md-2">
-        <a class="btn btn-app-blue" href="{{ route('byProject.create',$project->id) }}">Add To Do</a>
+        <a class="btn btn-app-blue" href="{{ route('byUser.create',$user->id) }}">Add To Do</a>
     </div>
 </div>
 
@@ -30,11 +30,11 @@
             @endif
             <td class="text-center">
                 <div class="form-group">
-                    <a href="{{ route('byProject.edit',$job->id) }}" class="btn" title="Edit">
+                    <a href="{{ route('byUser.edit',$job->id) }}" class="btn" title="Edit">
                         Edit
                     </a>
 
-                    <form id="delete-form" action="{{ route('byProject.destroy',$job->id) }}" method="POST">
+                    <form id="delete-form" action="{{ route('byUser.destroy',$job->id) }}" method="POST">
                         @csrf
                         @method("delete")
                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
