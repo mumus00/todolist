@@ -6,7 +6,7 @@
             <div class="card" style="padding-bottom:5px;">
                 <div class="card-header">Tambah Todo</div>
                 <div class="card-body" style="border-top:2px solid #eee; padding-top:20px;">
-                    <form class="form-horizontal" method="POST" action="/todo/add">
+                    <form class="form-horizontal" method="POST" action=" {{ route('todos.store') }} ">
                         {{ csrf_field() }}
 
                         <div class="form-group">

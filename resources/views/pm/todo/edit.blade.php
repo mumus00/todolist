@@ -6,7 +6,7 @@
             <div class="card" style="padding-bottom:5px;">
                 <div class="card-header"> Edit Todo </div>
                 <div class="card-body" style="border-top:2px solid #eee; padding-top:20px;">
-                    <form class="form-horizontal" action="/todo/edit/update/{{$job->id}}" method="POST">
+                    <form class="form-horizontal" action=" {{ route('todos.update', $job->id) }} " method="POST">
                         {{ csrf_field() }}
                         @method('PUT')
                         <div class="form-group">

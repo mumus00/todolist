@@ -1,10 +1,11 @@
-<!DOCTYPE html>
 @extends('layouts.dashboard')
 
 @section('content')
+<h1>{{$project->name}}</h1>
+
 <div class="row" style="margin-bottom:20px;">
     <div class="col-md-2">
-        <a class="btn btn-app-blue" href="/programmer/tambah">Add Programmer</a>
+        <a class="btn btn-app-blue" href="/detail/tambah/{{$project->id}}">Add Detail</a>
     </div>
 </div>
 
@@ -12,35 +13,33 @@
     <thead>
         <tr>
             <th class="text-center" style="border-top:2px solid #eee;">No</th>
-            <th class="text-center" style="border-top:2px solid #eee;">Nama</th>
-            <th class="text-center" style="border-top:2px solid #eee;">Posisi</th>
+            <th class="text-center" style="border-top:2px solid #eee;">To Do</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Programmer</th>
             <th class="text-center" style="border-top:2px solid #eee;">Aksi</th>
         </tr>
     </thead>
     <tbody>
-        @forelse($programmers as $programmer)
+        @forelse($jobs as $job)
         <tr>
             <td class="text-center">{{$loop->iteration}}</td>
-            <td class="text-center"><a href="/search/{{$programmer->name}}">{{$programmer->name}}</a></td>
-            <td class="text-center">
-                @if($programmer->role==1)
-                Project Manager
-                @else
-                Programmer
-                @endif
-            </td>
+            <td class="text-center">{{$job->name}}</td>
+            @if($job->user_id >= 1)
+            <td class="text-center">{{$job->user->name}}</td>
+            @else
+            <td class="text-center">Belum Ada</td>
+            @endif
             <td class="text-center">
                 <div class="form-group">
-                    <a href="/programmer/edit/{{$programmer->id}}" class="btn" title="Edit">
+                    <a href="/detail/edit/{{$job->id}}" class="btn" title="Edit">
                         Edit
                     </a>
 
-                    <a href="/programmer/delete/{{$programmer->id}}" onclick="event.preventDefault();
-                        document.getElementById('delete-form').submit();" class="btn">
+                    <a href="/detail/delete/{{$job->id}}" onclick="event.preventDefault();
+                            document.getElementById('delete-form').submit();" class="btn">
                         {{ __('Delete') }}
                     </a>
 
-                    <form id="delete-form" action="/programmer/delete/{{$programmer->id}}" method="POST" style="display: none;">
+                    <form id="delete-form" action="/detail/delete/{{$job->id}}" method="POST" style="display: none;">
                         @csrf
                         @method("delete")
                     </form>

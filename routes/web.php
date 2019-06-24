@@ -1,11 +1,8 @@
 <?php
 // admin manajemen job
+Route::resource('todos', 'JobController');
+Route::post('todos/search', 'JobController@search')->name('todos.search');
 Route::get('/pm', 'PmController@index');
-Route::get('/todo/tambah', 'PmController@tambah');
-Route::post('/todo/add', 'PmController@add');
-Route::get('/todo/edit/{id}', 'PmController@edit');
-Route::put('/todo/edit/update/{id}', 'PmController@update');
-Route::delete('/todo/delete/{id}', 'PmController@delete');
 
 //admin manajemen project
 Route::get('/project', 'PmController@showProject');

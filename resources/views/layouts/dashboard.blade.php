@@ -28,13 +28,13 @@
                     <div class="app-layout-drawer-scroll">
                         <!-- Drawer logo -->
                         <div id="logo" class="drawer-header">
-                            <a href="index.html"><img class="img-responsive" src="{{ asset('img/logo/logo-backend.png') }}" title="AppUI" alt="AppUI" /></a>
+                            <a href="/home"><img class="img-responsive" src="{{ asset('img/logo/geekgarden.png') }}" title="GeekGarden" alt="GeekGarden" /></a>
                         </div>
                         <!-- Drawer navigation -->
                         <nav class="drawer-main">
                             <ul class="nav nav-drawer">
                                 @if(Auth::User()->isAdmin())
-                                <li class="nav-item {{ Request::is('pm*') ? 'active' : '' }}">
+                                <li class="nav-item {{ Request::is('todos*') ? 'active' : '' }}">
                                     <a href="/pm"><i class="ion-ios-speedometer-outline"></i>Dashboard</a>
                                 </li>
                                 <li class="nav-item {{ Request::is('project*') ? 'active' : '' }}">

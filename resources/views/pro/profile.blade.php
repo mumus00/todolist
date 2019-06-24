@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<img src="{{ asset(auth()->user()->photo) }}" style="width: 250px; height:250px">
+<img src="{{ asset(auth()->user()->photo) }}" style="width: 250px; height:250px;border-radius:50%">
 <form action="{{ route('uploadFoto') }}" enctype="multipart/form-data" method="POST">
     @csrf
     @if ($errors->any())

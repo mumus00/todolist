@@ -1,32 +1,38 @@
 @extends('layouts.dashboard')
 
 @section('content')
-		<table border="1px">
-			<tr>
-				<th>No</th>
-				<th>Project</th>
-				<th>To Do</th>
-				<th>Progress</th>
-				<th>SELESAI</th>
-			</tr>
-			@forelse($jobs as $job)
-			<tr>
-				<td>{{$loop->iteration}}</td>
-				<td>{{$job->project->name}}</td>
-				<td>{{$job->name}}</td>
-				@if($job->confirmed == 1)
-				<td>Clear</td>
-				<td></td>
-				@else
-				<td>Not Clear</td>
-				<td>
-					<button><a href="/selesai/{{$job->id}}">SELESAI</a></button>
-				</td>
-				@endif
-
-			</tr>
-			@empty
-			<p>You don't Have any Jobs</p>
-			@endforelse
-		</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center" style="border-top:2px solid #eee;">No</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Project</th>
+            <th class="text-center" style="border-top:2px solid #eee;">To Do</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Progress</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse($jobs as $job)
+        <tr>
+            <td class="text-center">{{$loop->iteration}}</td>
+            <td class="text-center">{{$job->project->name}}</td>
+            <td class="text-center">{{$job->name}}</td>
+            <td class="text-center">
+                @if($job->confirmed == 1)
+                Clear
+                @else
+                <a class="btn btn-primary" href="/selesai/{{$job->id}}">SELESAI</a>
+                @endif
+            </td>
+        </tr>
+        @empty
+        <tr>
+            <td colspan="6">
+                <div class="alert alert-warning text-center mb0">
+                    <p>No Data</p>
+                </div>
+            </td>
+        </tr>
+        @endforelse
+    </tbody>
+</table>
 @endsection

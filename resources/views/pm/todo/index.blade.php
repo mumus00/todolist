@@ -1,23 +1,26 @@
 @extends('layouts.dashboard')
 @push('styles')
 <style>
-th {
-
-}
+    th {}
 </style>
 @endpush
 @section('content')
 <div class="row" style="margin-bottom:20px;">
     <div class="col-md-5">
-        <form action="/search" method="POST">
+        <form class="form-inline" action=" {{ route('todos.search') }} " method="POST">
             @csrf
-            <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search"
+            <div class="input-group">
+                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search"
                 name="search">
+                <div class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"> {{ __('Search') }} </button>
+                </div>
+            </div>
         </form>
     </div>
     <div class="col-md-5"></div>
     <div class="col-md-2">
-        <a class="btn btn-app-blue" href="/todo/tambah">Add To Do</a>
+        <a class="btn btn-app-blue" href=" {{ route('todos.create') }} ">Add To Do</a>
     </div>
 </div>
 
@@ -51,18 +54,14 @@ th {
             @endif
             <td class="text-center">
                 <div class="form-group">
-                    <a href="/todo/edit/{{$job->id}}" class="btn" title="Edit">
+                    <a href="{{ route('todos.edit', $job->id) }}" class="btn btn-sm" title="Edit">
                         Edit
                     </a>
 
-                    <a href="/todo/delete/{{$job->id}}" onclick="event.preventDefault();
-                    document.getElementById('delete-form').submit();" class="btn">
-                        {{ __('Delete') }}
-                    </a>
-
-                    <form id="delete-form" action="/todo/delete/{{$job->id}}" method="POST" style="display: none;">
+                    <form id="delete-form" action="{{ route('todos.destroy',$job->id) }}" method="POST">
                         @csrf
-                        @method("delete")
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm">Delete</button>
                     </form>
                 </div>
             </td>
