@@ -35,13 +35,13 @@
                             <ul class="nav nav-drawer">
                                 @if(Auth::User()->isAdmin())
                                 <li class="nav-item {{ Request::is('todos*') ? 'active' : '' }}">
-                                    <a href="/pm"><i class="ion-ios-speedometer-outline"></i>Dashboard</a>
+                                    <a href=" {{ route('todos.index') }} "><i class="ion-ios-speedometer-outline"></i>Dashboard</a>
                                 </li>
-                                <li class="nav-item {{ Request::is('project*') ? 'active' : '' }}">
-                                    <a href="/project"><i class="ion-ios-briefcase"></i>Project</a>
+                                <li class="nav-item {{ Request::is('projects*') ? 'active' : '' }}">
+                                    <a href=" {{ route('projects.index') }} "><i class="ion-ios-briefcase"></i>Project</a>
                                 </li>
-                                <li class="nav-item {{ Request::is('programmer*') ? 'active' : '' }}">
-                                    <a href="/programmer"><i class="ion-ios-people"></i>Manage User</a>
+                                <li class="nav-item {{ Request::is('programmers*') ? 'active' : '' }}">
+                                    <a href=" {{ route('programmers.index') }} "><i class="ion-ios-people"></i>Manage User</a>
                                 </li>
                                 @else
                                 <li class="nav-item {{ Request::is('pro*') ? 'active' : '' }}">

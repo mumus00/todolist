@@ -7,7 +7,7 @@
             <div class="card" style="padding-bottom:5px;">
                 <div class="card-header"> Edit Programmer </div>
                 <div class="card-body" style="border-top:2px solid #eee; padding-top:20px;"S>
-                    <form class="form-horizontal" action="/programmer/edit/update/{{$programmer->id}}" method="POST">
+                    <form class="form-horizontal" action="{{ route('programmers.update',$programmer->id) }}" method="POST">
                         {{ csrf_field() }}
                         @method('PUT')
                         <div class="form-group">

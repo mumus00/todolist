@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Job;
 use App\Project;
 use App\User;
@@ -36,9 +37,13 @@ class JobController extends Controller
         return redirect('/todos');
     }
 
-    public function show($id)
+    public function show()
     {
+        $user_id = Auth::User()->id;
+        $jobs = Job::where('user_id', $user_id)
+        ->orderBy('confirmed')->get();
 
+        return view('pro.tugas', compact('jobs'));
     }
 
     public function edit($id)
@@ -78,5 +83,53 @@ class JobController extends Controller
           })->orWhere('name', 'like', '%'.$search.'%')->orderBy('name')->get();
         // dd($jobs);
         return view('pm.todo.index', compact('jobs'));
+    }
+
+    //Todo Berdasarkan Project
+    public function showByProject($id){
+        $project = Project::find($id);
+        $jobs = Job::where('project_id',$id)->get();
+        return view('pm.byProject.index', compact('jobs','project'));
+    }
+
+    public function createByProject($id){
+        $programmers = User::all();
+        $project = Project::find($id);
+        return view('pm.byProject.tambah', compact('project','programmers'));
+    }
+
+    public function storeByProject(Request $request, $id){
+        $job = new Job([
+            'name' => $request->todo,
+            'project_id' => $id,
+            'user_id' => $request->programmer
+        ]);
+        $job->save();
+
+        return redirect()->route('byProject.show',$id);
+    }
+
+    public function editByProject($id){
+        $job = Job::find($id);
+        $project = Project::find($job->project_id);
+        $programmers = User::all();
+        return view('pm.byProject.edit', compact('job','project','programmers'));
+    }
+
+    public function updateByProject(Request $request, $id){
+        $job = Job::find($id);
+        $job->name = $request->todo;
+        $job->project_id = $request->project;
+        $job->user_id = $request->programmer;
+        $job->save();
+
+        return redirect()->route('byProject.show',$request->project);
+    }
+
+    public function destroyByProject($id){
+        $job = Job::find($id);
+        $project = Project::find($job->project_id);
+        $job->delete();
+        return redirect()->route('byProject.show',$project->id);
     }
 }

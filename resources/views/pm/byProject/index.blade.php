@@ -5,7 +5,7 @@
 
 <div class="row" style="margin-bottom:20px;">
     <div class="col-md-2">
-        <a class="btn btn-app-blue" href="/detail/tambah/{{$project->id}}">Add Detail</a>
+        <a class="btn btn-app-blue" href="{{ route('byProject.create',$project->id) }}">Add Detail</a>
     </div>
 </div>
 
@@ -30,18 +30,14 @@
             @endif
             <td class="text-center">
                 <div class="form-group">
-                    <a href="/detail/edit/{{$job->id}}" class="btn" title="Edit">
+                    <a href="{{ route('byProject.edit',$job->id) }}" class="btn" title="Edit">
                         Edit
                     </a>
 
-                    <a href="/detail/delete/{{$job->id}}" onclick="event.preventDefault();
-                            document.getElementById('delete-form').submit();" class="btn">
-                        {{ __('Delete') }}
-                    </a>
-
-                    <form id="delete-form" action="/detail/delete/{{$job->id}}" method="POST" style="display: none;">
+                    <form id="delete-form" action="{{ route('byProject.destroy',$job->id) }}" method="POST">
                         @csrf
                         @method("delete")
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                     </form>
                 </div>
             </td>

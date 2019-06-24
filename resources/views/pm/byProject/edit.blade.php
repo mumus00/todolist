@@ -5,17 +5,35 @@
     <div class="row" style="display: flex; justify-content: center;">
         <div class="col-md-8">
             <div class="card" style="padding-bottom:5px;">
-                <div class="card-header">Edit Detail Project ID {{$job->project->id}}</div>
+                <div class="card-header">Edit To Do pada Project {{$project->name}}</div>
                 <div class="card-body" style="border-top:2px solid #eee; padding-top:20px;">
-                    <form class="form-horizontal" method="POST" action="/detail/edit/update/{{$job->project->id}}">
+                    <form class="form-horizontal" method="POST" action="{{ route('byProject.update',$job->id) }}">
                         {{ csrf_field() }}
                         @method("PUT")
 
-                        <div class="form-group">
-                            <label for="id" class="col-md-4 control-label">Todo ID</label>
+                        <div class="form-group" style="display:none">
+                            <label for="project" class="col-md-4 control-label">Project</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="id" value="{{$job->id}}" readonly>
+                                <input class="form-control" type="text" name="project" value=" {{$project->id}} ">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="programmer" class="col-md-4 control-label">Programmer</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="programmer">
+                                    <option value="0">NOT SELECTED</option>
+                                    @forelse($programmers as $programmer)
+                                    <option value="{{$programmer->id}}"
+                                        {{$programmer->id==auth()->user()->id?'selected':''}}>
+                                        {{$programmer->name}}
+                                    </option>
+                                    @empty
+
+                                    @endforelse
+                                </select>
                             </div>
                         </div>
 

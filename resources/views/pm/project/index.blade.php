@@ -8,7 +8,7 @@
 @section('content')
 <div class="row" style="margin-bottom:20px;">
     <div class="col-md-2">
-        <a class="btn btn-app-blue" href="/project/tambah">Add Project</a>
+        <a class="btn btn-app-blue" href=" {{ route('projects.create') }} ">Add Project</a>
     </div>
 </div>
 
@@ -24,21 +24,17 @@
         @forelse($projects as $project)
         <tr>
             <td class="text-center">{{$loop->iteration}}</td>
-            <td class="text-center"><a href="/detail/{{$project->id}}">{{$project->name}}</a></td>
+            <td class="text-center"><a href="{{ route('byProject.show',$project->id) }}">{{$project->name}}</a></td>
             <td class="text-center">
                 <div class="form-group">
-                    <a href="/project/edit/{{$project->id}}" class="btn" title="Edit">
+                    <a href=" {{ route('projects.edit',$project->id) }} " class="btn" title="Edit">
                         Edit
                     </a>
 
-                    <a href="/project/delete/{{$project->id}}" onclick="event.preventDefault();
-                        document.getElementById('delete-form').submit();" class="btn">
-                        {{ __('Delete') }}
-                    </a>
-
-                    <form id="delete-form" action="/project/delete/{{$project->id}}" method="POST" style="display: none;">
+                    <form id="delete-form" action=" {{ route('projects.destroy',$project->id) }}" method="POST">
                         @csrf
                         @method("delete")
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                     </form>
                 </div>
             </td>

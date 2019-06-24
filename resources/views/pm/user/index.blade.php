@@ -4,7 +4,7 @@
 @section('content')
 <div class="row" style="margin-bottom:20px;">
     <div class="col-md-2">
-        <a class="btn btn-app-blue" href="/programmer/tambah">Add Programmer</a>
+        <a class="btn btn-app-blue" href=" {{ route('programmers.create') }} ">Add Programmer</a>
     </div>
 </div>
 
@@ -31,18 +31,14 @@
             </td>
             <td class="text-center">
                 <div class="form-group">
-                    <a href="/programmer/edit/{{$programmer->id}}" class="btn" title="Edit">
+                    <a href=" {{ route('programmers.edit', $programmer->id) }} " class="btn" title="Edit">
                         Edit
                     </a>
 
-                    <a href="/programmer/delete/{{$programmer->id}}" onclick="event.preventDefault();
-                        document.getElementById('delete-form').submit();" class="btn">
-                        {{ __('Delete') }}
-                    </a>
-
-                    <form id="delete-form" action="/programmer/delete/{{$programmer->id}}" method="POST" style="display: none;">
+                    <form id="delete-form" action=" {{ route('programmers.destroy',$programmer->id) }} " method="POST">
                         @csrf
                         @method("delete")
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                     </form>
                 </div>
             </td>

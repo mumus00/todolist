@@ -1,26 +1,23 @@
 <?php
+Route::get('/pm', 'PmController@index');
 // admin manajemen job
 Route::resource('todos', 'JobController');
 Route::post('todos/search', 'JobController@search')->name('todos.search');
-Route::get('/pm', 'PmController@index');
 
 //admin manajemen project
-Route::get('/project', 'PmController@showProject');
-Route::get('/project/tambah', 'PmController@tambahProject');
-Route::post('/project/add', 'PmController@addProject');
-Route::get('/project/edit/{id}', 'PmController@editProject');
-Route::put('/project/edit/update/{id}', 'PmController@updateProject');
-Route::delete('/project/delete/{id}', 'PmController@deleteProject');
+Route::resource('projects', 'ProjectController');
+//Untuk Job tetapi menggunakan id Project
+Route::get('projects/todos/{id_project}','JobController@showByProject')->name('byProject.show');
+Route::get('projects/todos/create/{id_project}','JobController@createByProject')->name('byProject.create');
+Route::post('projects/todos/store/{id_project}', 'JobController@storeByProject')->name('byProject.store');
+Route::get('projects/todos/{id_job}/edit', 'JobController@editByProject')->name('byProject.edit');
+Route::put('projects/todos/{id_project}', 'JobController@updateByProject')->name('byProject.update');
+Route::delete('projects/todos/{id_job}', 'JobController@destroyByProject')->name('byProject.destroy');
+// Route::post('projects/todos/store/{id}')
 
 //admin manajemen user
-Route::get('/programmer', 'PmController@showProgrammer');
-Route::get('/programmer/tambah', 'PmController@tambahProgrammer');
-Route::post('/programmer/add', 'PmController@addProgrammer');
-Route::get('/programmer/edit/{id}', 'PmController@editProgrammer');
-Route::put('/programmer/edit/update/{id}', 'PmController@updateProgrammer');
-Route::delete('/programmer/delete/{id}', 'PmController@deleteProgrammer');
-
-//admin manajemen tugas setiap project
+Route::resource('programmers', 'UserController');
+//Untuk Job tetapi menggunakan id user
 Route::get('/detail/{id_project}', 'PmController@showDetail');
 Route::get('/detail/tambah/{id_project}', 'PmController@tambahDetail');
 Route::post('/detail/add/{id}', 'PmController@addDetail');
@@ -28,15 +25,16 @@ Route::get('/detail/edit/{id_job}', 'PmController@editDetail');
 Route::put('/detail/edit/update/{id_project}', 'PmController@updateDetail');
 Route::delete('/detail/delete/{id}', 'PmController@deleteDetail');
 
+//Ganti Password
 Route::get('/changePassword','HomeController@showChangePasswordForm');
 Route::post('/changePassword','HomeController@changePassword')->name('changePassword');
 
-//route khusu programmer
+//route khusus programmer
 Route::get('/pro', 'ProController@show');
 Route::get('/pro/ambil/{id}', 'ProController@ambil');
 
 //route bersama
-Route::get('/mytodo', 'HomeController@mytodo');
+Route::get('/mytodo', 'JobController@show');
 Route::get('/selesai/{id_job}', 'HomeController@selesai');
 Route::post('/search', 'HomeController@search');
 Route::get('/search/{username}','HomeController@searchUser');
@@ -50,10 +48,6 @@ Route::get('/', function(){
 
 Route::get('/register', function(){
 	return redirect('/');
-});
-
-Route::get('/login2', function(){
-    return view('auth.login2');
 });
 
 Route::get('/profile', function(){

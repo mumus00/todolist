@@ -7,7 +7,7 @@
             <div class="card" style="padding-bottom:5px;">
                 <div class="card-header">Tambah Project</div>
                 <div class="card-body" style="border-top:2px solid #eee; padding-top:20px;">
-                    <form class="form-horizontal" method="POST" action="/project/add">
+                    <form class="form-horizontal" method="POST" action=" {{ route('projects.store') }} ">
                         {{ csrf_field() }}
 
                         <div class="form-group">

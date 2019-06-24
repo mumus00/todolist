@@ -26,7 +26,7 @@ class ProjectController extends Controller
         ]);
         $project->save();
 
-        return redirect('/project');
+        return redirect()->route('projects.index');
     }
 
     public function show($id)
@@ -36,7 +36,7 @@ class ProjectController extends Controller
 
     public function edit($id)
     {
-        $project = Project::find($id)->first();
+        $project = Project::find($id);
 
         return view('pm.project.edit', compact('project'));
     }
@@ -47,14 +47,14 @@ class ProjectController extends Controller
         $project->name = $request->project;
         $project->save();
 
-        return redirect('/project');
+        return redirect()->route('projects.index');
     }
 
     public function destroy($id)
     {
-        $project = Project::find($id)->delete();
-        $job = Job::where('project_id','=',$id)->delete();
+        Project::find($id)->delete();
+        Job::where('project_id','=',$id)->delete();
 
-        return redirect('/project');
+        return redirect()->route('projects.index');
     }
 }
