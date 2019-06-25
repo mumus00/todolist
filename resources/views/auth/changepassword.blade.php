@@ -5,8 +5,7 @@
             <div class="col-md-8">
                 <div class="card" style="padding-bottom:5px;">
                     <div class="card-header">Change password</div>
-
-                    <div class="card-body">
+                    <div class="card-body" style="border-top:2px solid #eee; padding-top:20px;">
                         @if (session('error'))
                             <div class="alert alert-danger">
                                 {{ session('error') }}
@@ -17,7 +16,7 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <form class="form-horizontal" method="POST" action="{{ route('changePassword') }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('user.updatePass') }}">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}">

@@ -20,7 +20,7 @@
                 @if($job->confirmed == 1)
                 Clear
                 @else
-                <a class="btn btn-primary" href="/selesai/{{$job->id}}">SELESAI</a>
+                <a class="btn btn-primary" href="/done/{{$job->id}}">SELESAI</a>
                 @endif
             </td>
         </tr>

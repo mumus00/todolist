@@ -18,7 +18,7 @@
             <td class="text-center">{{$job->name}}</td>
             <td class="text-center">
                 <div class="form-group">
-                    <a href="/pro/ambil/{{$job->id}}" class="btn btn-primary" title="Ambil">
+                    <a href="{{ route('todos.ambil', $job->id) }}" class="btn btn-primary" title="Ambil">
                         Ambil
                     </a>
                 </div>

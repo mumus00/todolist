@@ -9,6 +9,12 @@ use App\Job;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+
     public function index()
     {
         $programmers = User::all();
@@ -35,7 +41,8 @@ class UserController extends Controller
 
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('pm.profile',compact('user'));
     }
 
     public function edit($id)
@@ -56,9 +63,32 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-
         User::find($id)->delete();
         Job::where('user_id','=',$id)->update(['user_id' => 0]);
         return redirect()->route('programmers.index');
+    }
+
+    public function editPassword(){
+        return view('auth.changepassword');
+    }
+
+    public function updatePassword(){
+        if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
+            // The passwords matches
+            return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
+        }
+        if(strcmp($request->get('current-password'), $request->get('new-password')) == 0){
+            //Current password and new password are same
+            return redirect()->back()->with("error","New Password cannot be same as your current password. Please choose a different password.");
+        }
+        $request->validate([
+            'current-password' => 'required',
+            'new-password' => 'required|string|min:6|confirmed',
+        ]);
+        //Change Password
+        $user = Auth::user();
+        $user->password = bcrypt($request->get('new-password'));
+        $user->save();
+        return redirect()->back()->with("success","Password changed successfully !");
     }
 }

@@ -25,18 +25,23 @@
         <tr>
             <td class="text-center">{{$loop->iteration}}</td>
             <td class="text-center"><a href="{{ route('byProject.show',$project->id) }}">{{$project->name}}</a></td>
-            <td class="text-center">
-                <div class="form-group">
-                    <a href=" {{ route('projects.edit',$project->id) }} " class="btn" title="Edit">
-                        Edit
-                    </a>
-
-                    <form id="delete-form" action=" {{ route('projects.destroy',$project->id) }}" method="POST">
-                        @csrf
-                        @method("delete")
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
-                </div>
+            <td class="text-center" style="display: flex;justify-content:center">
+                <table>
+                    <tr>
+                        <td>
+                            <a href=" {{ route('projects.edit',$project->id) }} " class="btn btn-sm btn-success" title="Edit">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <form id="delete-form" action=" {{ route('projects.destroy',$project->id) }}" method="POST">
+                                @csrf
+                                @method("delete")
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
         @empty

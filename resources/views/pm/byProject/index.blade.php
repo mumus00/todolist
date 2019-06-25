@@ -15,6 +15,7 @@
             <th class="text-center" style="border-top:2px solid #eee;">No</th>
             <th class="text-center" style="border-top:2px solid #eee;">To Do</th>
             <th class="text-center" style="border-top:2px solid #eee;">Programmer</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Progress</th>
             <th class="text-center" style="border-top:2px solid #eee;">Aksi</th>
         </tr>
     </thead>
@@ -28,18 +29,28 @@
             @else
             <td class="text-center">Belum Ada</td>
             @endif
-            <td class="text-center">
-                <div class="form-group">
-                    <a href="{{ route('byProject.edit',$job->id) }}" class="btn" title="Edit">
-                        Edit
-                    </a>
-
-                    <form id="delete-form" action="{{ route('byProject.destroy',$job->id) }}" method="POST">
-                        @csrf
-                        @method("delete")
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
-                </div>
+            @if($job->confirmed == 1)
+            <td class="text-center">Clear</td>
+            @else
+            <td class="text-center">Not yet</td>
+            @endif
+            <td class="text-center" style="display: flex;justify-content:center">
+                <table>
+                    <tr>
+                        <td>
+                            <a href="{{ route('byProject.edit',$job->id) }}" class="btn btn-sm btn-success" title="Edit">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <form id="delete-form" action="{{ route('byProject.destroy',$job->id) }}" method="POST">
+                                @csrf
+                                @method("delete")
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
         @empty

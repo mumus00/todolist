@@ -10,11 +10,21 @@ use App\User;
 
 class JobController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin', ['except' => ['index','show','ambil']]);
+    }
+
     public function index()
     {
-        $jobs = Job::all();
-
-        return view('pm.todo.index', compact('jobs'));
+        if(Auth::User()->isAdmin()){
+            $jobs = Job::all();
+            return view('pm.todo.index', compact('jobs'));
+        }else{
+            $jobs = Job::where('user_id',0)->where('confirmed',0)->get();
+            return view('pro.index',compact('jobs'));
+        }
     }
 
     public function create()
@@ -37,10 +47,9 @@ class JobController extends Controller
         return redirect('/todos');
     }
 
-    public function show()
+    public function show($id)
     {
-        $user_id = Auth::User()->id;
-        $jobs = Job::where('user_id', $user_id)
+        $jobs = Job::where('user_id', $id)
         ->orderBy('confirmed')->get();
 
         return view('pro.tugas', compact('jobs'));
@@ -179,5 +188,22 @@ class JobController extends Controller
         $programmer = User::find($job->user_id);
         $job->delete();
         return redirect()->route('byUser.show',$programmer->id);
+    }
+
+    public function ambil($id){
+        $id_user = Auth::User()->id;
+        $job = Job::find($id);
+        $job->user_id = $id_user;
+        $job->save();
+
+        return redirect()->route('todos.index');
+    }
+
+    public function done($id){
+        $job = Job::find($id);
+        $job->confirmed = 1;
+        $job->save();
+
+        return redirect()->route('todos.mytodo',auth()->user()->id);
     }
 }

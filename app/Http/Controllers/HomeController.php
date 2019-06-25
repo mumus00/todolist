@@ -18,10 +18,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        if(Auth::User()->isAdmin()){
-            return redirect('/pm');
-        }
-        return redirect('/pro');
+        return redirect()->route('todos.index');
     }
 
     public function showChangePasswordForm(){

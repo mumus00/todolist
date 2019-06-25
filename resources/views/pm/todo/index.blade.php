@@ -10,8 +10,8 @@
         <form class="form-inline" action=" {{ route('todos.search') }} " method="POST">
             @csrf
             <div class="input-group">
-                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search"
-                name="search">
+                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+                    aria-label="Search" name="search">
                 <div class="input-group-btn">
                     <button class="btn btn-primary" type="submit"> {{ __('Search') }} </button>
                 </div>
@@ -52,18 +52,23 @@
             @else
             <td class="text-center">Not yet</td>
             @endif
-            <td class="text-center">
-                <div class="form-group">
-                    <a href="{{ route('todos.edit', $job->id) }}" class="btn btn-sm" title="Edit">
-                        Edit
-                    </a>
-
-                    <form id="delete-form" action="{{ route('todos.destroy',$job->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
-                </div>
+            <td class="text-center" style="display: flex;justify-content:center">
+                <table>
+                    <tr>
+                        <td>
+                            <a href="{{ route('todos.edit', $job->id) }}" class="btn btn-sm btn-success" title="Edit">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <form id="delete-form" action="{{ route('todos.destroy',$job->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
         @empty
