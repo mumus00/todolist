@@ -4,20 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 use App\User;
 use App\Job;
+use Image;
+use File;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin');
+        $this->middleware('admin',['except' => ['editPassword','updatePassword','editProfile','updateProfile','show']]);
     }
 
     public function index()
     {
-        $programmers = User::all();
+        $programmers = User::paginate(5);
         return view('pm.user.index', compact('programmers'));
     }
 
@@ -41,7 +44,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::find(auth()->user()->id);
         return view('pm.profile',compact('user'));
     }
 
@@ -90,5 +93,24 @@ class UserController extends Controller
         $user->password = bcrypt($request->get('new-password'));
         $user->save();
         return redirect()->back()->with("success","Password changed successfully !");
+    }
+
+    public function editProfile(){
+        $user = User::find(auth()->user()->id);
+        return view('pm.profile',compact('user'));
+    }
+
+    public function updateProfile(Request $request){
+        $request->validate([
+
+        ]);
+
+        $path = $request->file('image')->store('profile');
+        User::where('id',auth()->user()->id)->update([
+            'photo' => $path,
+            'name'  => $request->name,
+            'email' => $request->email,
+        ]);
+        return redirect()->route('profil.edit');
     }
 }

@@ -4,7 +4,7 @@ Route::resource('todos', 'JobController');
 Route::post('todos/search', 'JobController@search')->name('todos.search');
 Route::get('todos/ambil/{id}', 'JobController@ambil')->name('todos.ambil');
 Route::get('mytodo/{id}','JobController@show')->name('todos.mytodo');
-Route::get('done/{id}','JobController@done');
+Route::get('done/{id}','JobController@done')->name('todos.done');
 
 //manajemen project
 Route::resource('projects', 'ProjectController');
@@ -23,14 +23,17 @@ Route::post('programmers/todos/store/{id_user}', 'JobController@storeByUser')->n
 Route::get('programmers/todos/{id_job}/edit', 'JobController@editByUser')->name('byUser.edit');
 Route::put('programmers/todos/{id_job}', 'JobController@updateByUser')->name('byUser.update');
 Route::delete('programmers/todos/{id_job}', 'JobController@destroyByUser')->name('byUser.destroy');
-Route::get('/changePassword','UserController@editPassword')->name('user.editPass');
-Route::post('/changePassword','UserController@updatePassword')->name('user.updatePass');
+
+Route::get('changePassword','UserController@editPassword')->name('user.editPass');
+Route::post('changePassword','UserController@updatePassword')->name('user.updatePass');
+Route::get('profil','UserController@editProfile')->name('profil.edit');
+Route::put('profil','UserController@updateProfile')->name('profil.update');
 
 Auth::routes();
-Route::get('/home', 'JobController@index')->name('home');
+Route::get('home', 'JobController@index')->name('home');
 Route::get('/', function(){
 	return redirect('/home');
 });
-Route::get('/register', function(){
+Route::get('register', function(){
 	return redirect('/');
 });

@@ -14,9 +14,17 @@
         href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" />
     <!-- AppUI CSS stylesheets -->
     <link rel="stylesheet" id="css-ionicons" href="{{ asset('css/ionicons.css') }}" />
-    <link rel="stylesheet" id="css-bootstrap" href="{{ asset('css/bootstrap.css') }}" />
+    {{-- <link rel="stylesheet" id="css-bootstrap" href="{{ asset('css/bootstrap.css') }}" /> --}}
     <link rel="stylesheet" id="css-app" href="{{ asset('css/app2.css') }}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.css">
     <!-- End Stylesheets -->
+    <style>
+        .btn.btn-rounded {
+        border-radius: 50px;
+    }
+    </style>
     @stack('styles')
 </head>
 
@@ -29,8 +37,10 @@
                 <div class="app-layout-drawer-scroll">
                     <!-- Drawer logo -->
                     <div id="logo" class="drawer-header">
-                        <a href="/home"><img class="img-responsive" src="{{ asset('img/logo/geekgarden.png') }}"
-                                title="GeekGarden" alt="GeekGarden" /></a>
+                        <a href="/home">
+                            <img class="img-responsive" src="{{ asset('img/logo/geekgarden.png') }}"
+                                title="GeekGarden" alt="GeekGarden" />
+                            </a>
                     </div>
                     <!-- Drawer navigation -->
                     <nav class="drawer-main">
@@ -72,20 +82,9 @@
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#header-navbar-collapse" aria-expanded="false">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <button class="pull-left hidden-lg hidden-md navbar-toggle" type="button"
-                                data-toggle="layout" data-action="sidebar_toggle">
-                                <span class="sr-only">Toggle drawer</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
+                            <a class="btn btn-sm btn-rounded btn-primary" id="btn-back" href="javascript:window.history.go(-1);">
+                                <b>Back</b>
+                            </a>
                             <span class="navbar-page-title">
                                 {{ Auth::user()->role==1?'Project Manager':'Programmer'}}
                             </span>
@@ -106,7 +105,7 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
-                                            <a href="{{ route('programmers.show',auth()->user()->id) }}">Profile</a>
+                                            <a href=" {{ route('profil.edit') }} ">Profile</a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -144,7 +143,10 @@
 
     <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
     <script src="{{ asset('js/core/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/core/bootstrap.min.js') }}"></script>
+    {{-- <script src="{{ asset('js/core/bootstrap.min.js') }}"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.css"></script>
     @stack('script')
 </body>
 

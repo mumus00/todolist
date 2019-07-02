@@ -13,16 +13,16 @@ class JobController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin', ['except' => ['index','show','ambil']]);
+        $this->middleware('admin', ['except' => ['index','show','ambil','done']]);
     }
 
     public function index()
     {
         if(Auth::User()->isAdmin()){
-            $jobs = Job::all();
+            $jobs = Job::paginate(5);
             return view('pm.todo.index', compact('jobs'));
         }else{
-            $jobs = Job::where('user_id',0)->where('confirmed',0)->get();
+            $jobs = Job::where('user_id',0)->where('confirmed',0)->paginate(5);
             return view('pro.index',compact('jobs'));
         }
     }
@@ -50,7 +50,7 @@ class JobController extends Controller
     public function show($id)
     {
         $jobs = Job::where('user_id', $id)
-        ->orderBy('confirmed')->get();
+        ->orderBy('confirmed')->paginate(5);
 
         return view('pro.tugas', compact('jobs'));
     }
@@ -89,7 +89,7 @@ class JobController extends Controller
             $project->where('name', 'like', '%'.$search.'%');
           })->orWhereHas('user', function($user) use($search) {
             $user->where('name', 'like', '%'.$search.'%');
-          })->orWhere('name', 'like', '%'.$search.'%')->orderBy('name')->get();
+          })->orWhere('name', 'like', '%'.$search.'%')->orderBy('name')->paginate(5);
         // dd($jobs);
         return view('pm.todo.index', compact('jobs'));
     }
@@ -97,7 +97,7 @@ class JobController extends Controller
     //Todo Berdasarkan Project
     public function showByProject($id){
         $project = Project::find($id);
-        $jobs = Job::where('project_id',$id)->get();
+        $jobs = Job::where('project_id',$id)->paginate(5);
         return view('pm.byProject.index', compact('jobs','project'));
     }
 
@@ -145,7 +145,7 @@ class JobController extends Controller
     //Todo Berdasarkan Project
     public function showByUser($id){
         $user = User::find($id);
-        $jobs = Job::where('user_id',$id)->get();
+        $jobs = Job::where('user_id',$id)->paginate(5);
         return view('pm.byUser.index', compact('jobs','user'));
     }
 

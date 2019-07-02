@@ -55,4 +55,7 @@
         @endforelse
     </tbody>
 </table>
+<div style="display: flex;justify-content:center;">
+    {{ $projects->links() }}
+</div>
 @endsection

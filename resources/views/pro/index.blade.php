@@ -35,4 +35,7 @@
         @endforelse
     </tbody>
 </table>
+<div style="display: flex;justify-content:center;">
+    {{ $jobs->links() }}
+</div>
 @endsection

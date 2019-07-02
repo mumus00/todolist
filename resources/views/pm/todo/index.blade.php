@@ -32,6 +32,8 @@
             <th class="text-center" style="border-top:2px solid #eee;">To Do</th>
             <th class="text-center" style="border-top:2px solid #eee;">Programmer</th>
             <th class="text-center" style="border-top:2px solid #eee;">Progress</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Created_at</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Dateline</th>
             <th class="text-center" style="border-top:2px solid #eee;">Aksi</th>
         </tr>
     </thead>
@@ -52,6 +54,8 @@
             @else
             <td class="text-center">Not yet</td>
             @endif
+            <td class="text-center">{{ $job->created_at->format('d/m/Y') }}</td>
+            <td class="text-center">date</td>
             <td class="text-center" style="display: flex;justify-content:center">
                 <table>
                     <tr>
@@ -82,4 +86,7 @@
         @endforelse
     </tbody>
 </table>
+<div style="display: flex;justify-content:center;">
+    {{ $jobs->links() }}
+</div>
 @endsection

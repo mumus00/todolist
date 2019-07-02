@@ -35,7 +35,7 @@
         <div class="col-md-8">
             <div class="card" style="padding-bottom:5px;">
                 <div class="card-body" style="border-top:2px solid #eee; padding-top:20px;">
-                    <form class="form-horizontal" action="#" method="POST">
+                    <form class="form-horizontal" action=" {{ route('profil.update') }} " enctype='multipart/form-data' method="POST">
                         {{ csrf_field() }}
                         @method('PUT')
 
@@ -52,8 +52,7 @@
                                     <span class="input-group-btn">
                                         <span class="btn btn-default btn-file">
                                             Browse...
-                                            <input data-url="/upload" accept="image/jpeg" name="image" type="file"
-                                                id="image">
+                                            <input name="image" type="file" id="image">
                                         </span>
                                     </span>
                                 </div>

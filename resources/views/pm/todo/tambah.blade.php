@@ -50,6 +50,20 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="dateline" class="col-md-4 control-label">Dateline</label>
+
+                            <div class="col-md-6">
+                                <div class='input-group date' id='datetimepicker1'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span ></span>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Tambah
@@ -63,3 +77,10 @@
     </div>
 </div>
 @endsection
+@push('script')
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>
+@endpush

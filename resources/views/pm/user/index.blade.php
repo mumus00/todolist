@@ -60,4 +60,7 @@
         @endforelse
     </tbody>
 </table>
+<div style="display: flex;justify-content:center;">
+    {{ $programmers->links() }}
+</div>
 @endsection
