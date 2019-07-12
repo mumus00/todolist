@@ -45,6 +45,11 @@
                                 <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                             </form>
                         </td>
+                        <td>
+                            <a href=" {{ route('programmers.reset', $programmer->id) }} " class="btn btn-sm btn-primary" title="Edit">
+                                Reset
+                            </a>
+                        </td>
                     </tr>
                 </table>
             </td>
@@ -53,7 +58,7 @@
         <tr>
             <td colspan="6">
                 <div class="alert alert-warning text-center mb0">
-                    <p>No Data</p>
+                    <p>Data Not Found</p>
                 </div>
             </td>
         </tr>

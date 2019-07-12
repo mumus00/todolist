@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Job extends Model
 {
 	protected $fillable = [
-        'name', 'confirmed', 'project_id', 'user_id'
+        'name', 'status', 'project_id', 'user_id','dateline'
     ];
-    
+
     public function user()
 	{
 	    return $this->belongsTo(User::class);

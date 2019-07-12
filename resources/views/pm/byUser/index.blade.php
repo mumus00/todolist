@@ -1,9 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<h1>{{$user->name}}</h1>
 
 <div class="row" style="margin-bottom:20px;">
+    <div class="col-md-10">
+        <h2 style="margin:0px;">{{$user->name}}</h2>
+    </div>
     <div class="col-md-2">
         <a class="btn btn-app-blue" href="{{ route('byUser.create',$user->id) }}">Add To Do</a>
     </div>
@@ -16,6 +18,8 @@
             <th class="text-center" style="border-top:2px solid #eee;">Project</th>
             <th class="text-center" style="border-top:2px solid #eee;">To Do</th>
             <th class="text-center" style="border-top:2px solid #eee;">Progress</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Posted</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Deadline</th>
             <th class="text-center" style="border-top:2px solid #eee;">Aksi</th>
         </tr>
     </thead>
@@ -25,11 +29,9 @@
             <td class="text-center">{{$loop->iteration}}</td>
             <td class="text-center">{{$job->project->name}}</td>
             <td class="text-center">{{$job->name}}</td>
-            @if($job->confirmed == 1)
-            <td class="text-center">Clear</td>
-            @else
-            <td class="text-center">Not yet</td>
-            @endif
+            <td class="text-center"> {{ $job->status }} </td>
+            <td class="text-center">{{ $job->created_at->format('d/m/Y') }}</td>
+            <td class="text-center">{{ $job->dateline }}</td>
             <td class="text-center" style="display: flex;justify-content:center">
                 <table>
                     <tr>
@@ -53,7 +55,7 @@
         <tr>
             <td colspan="6">
                 <div class="alert alert-warning text-center mb0">
-                    <p>No Data</p>
+                    <p>Data Not Found</p>
                 </div>
             </td>
         </tr>

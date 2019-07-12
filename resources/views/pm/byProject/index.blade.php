@@ -1,9 +1,10 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<h1>{{$project->name}}</h1>
-
 <div class="row" style="margin-bottom:20px;">
+    <div class="col-md-10">
+        <h1 style="margin:0px;">{{$project->name}}</h1>
+    </div>
     <div class="col-md-2">
         <a class="btn btn-app-blue" href="{{ route('byProject.create',$project->id) }}">Add To Do</a>
     </div>
@@ -16,6 +17,8 @@
             <th class="text-center" style="border-top:2px solid #eee;">To Do</th>
             <th class="text-center" style="border-top:2px solid #eee;">Programmer</th>
             <th class="text-center" style="border-top:2px solid #eee;">Progress</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Posted</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Deadline</th>
             <th class="text-center" style="border-top:2px solid #eee;">Aksi</th>
         </tr>
     </thead>
@@ -29,11 +32,9 @@
             @else
             <td class="text-center">Belum Ada</td>
             @endif
-            @if($job->confirmed == 1)
-            <td class="text-center">Clear</td>
-            @else
-            <td class="text-center">Not yet</td>
-            @endif
+            <td class="text-center"> {{ $job->status }} </td>
+            <td class="text-center">{{ $job->created_at->format('d/m/Y') }}</td>
+            <td class="text-center">{{ $job->dateline }}</td>
             <td class="text-center" style="display: flex;justify-content:center">
                 <table>
                     <tr>
@@ -57,7 +58,7 @@
         <tr>
             <td colspan="6">
                 <div class="alert alert-warning text-center mb0">
-                    <p>No Data</p>
+                    <p>Data Not Found</p>
                 </div>
             </td>
         </tr>

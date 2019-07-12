@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Auth;
 use App\User;
 use App\Job;
-use Image;
+use Illuminate\Support\Facades\Storage;
 use File;
 
 class UserController extends Controller
@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $programmers = User::paginate(5);
+        $programmers = User::orderBy('role','DESC')->paginate(5);
         return view('pm.user.index', compact('programmers'));
     }
 
@@ -36,6 +36,7 @@ class UserController extends Controller
             'email' =>$request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'photo' => 'profile/default.jpg',
         ]);
         $programmer->save();
 
@@ -45,7 +46,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find(auth()->user()->id);
-        return view('pm.profile',compact('user'));
+        return view('profile.index',compact('user'));
     }
 
     public function edit($id)
@@ -75,7 +76,7 @@ class UserController extends Controller
         return view('auth.changepassword');
     }
 
-    public function updatePassword(){
+    public function updatePassword(Request $request){
         if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
             // The passwords matches
             return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
@@ -97,20 +98,33 @@ class UserController extends Controller
 
     public function editProfile(){
         $user = User::find(auth()->user()->id);
-        return view('pm.profile',compact('user'));
+        return view('profile.index',compact('user'));
     }
 
     public function updateProfile(Request $request){
         $request->validate([
-
+            'image' => 'mimes:jpeg,jpg,png',
         ]);
 
-        $path = $request->file('image')->store('profile');
+        if($request->image != null){
+            $path = $request->file('image')->store('profile');
+        }else{
+            $path = User::find(auth()->user()->id)->photo;
+        }
+
         User::where('id',auth()->user()->id)->update([
             'photo' => $path,
             'name'  => $request->name,
             'email' => $request->email,
         ]);
         return redirect()->route('profil.edit');
+    }
+
+    public function reset($id){
+        User::find($id)->update([
+            'password' => bcrypt('123456'),
+        ]);
+
+        return redirect()->route('programmers.index');
     }
 }

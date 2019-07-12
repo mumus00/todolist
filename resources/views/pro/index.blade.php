@@ -7,6 +7,7 @@
             <th class="text-center" style="border-top:2px solid #eee;">No</th>
             <th class="text-center" style="border-top:2px solid #eee;">Project</th>
             <th class="text-center" style="border-top:2px solid #eee;">To Do</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Deadline</th>
             <th class="text-center" style="border-top:2px solid #eee;">Aksi</th>
         </tr>
     </thead>
@@ -16,6 +17,7 @@
             <td class="text-center">{{$loop->iteration}}</td>
             <td class="text-center">{{$job->project->name}}</td>
             <td class="text-center">{{$job->name}}</td>
+            <td class="text-center">{{$job->dateline}}</td>
             <td class="text-center">
                 <div class="form-group">
                     <a href="{{ route('todos.ambil', $job->id) }}" class="btn btn-primary" title="Ambil">

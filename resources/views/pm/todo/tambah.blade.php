@@ -43,23 +43,20 @@
 
                         <div class="form-group">
                             <label for="new-todo" class="col-md-4 control-label">Todo</label>
-
                             <div class="col-md-6">
                                 <input id="new-todo" type="text" class="form-control" name="todo" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="dateline" class="col-md-4 control-label">Dateline</label>
-
+                            <label for="dateline" class="col-md-4 control-label">Deadline</label>
                             <div class="col-md-6">
-                                <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control" />
+                                <div class='input-group date' id='datePicker'>
+                                    <input type='text' class="form-control" name="dateline" required/>
                                     <span class="input-group-addon">
-                                        <span ></span>
+                                        <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
-
                             </div>
                         </div>
 
@@ -79,8 +76,21 @@
 @endsection
 @push('script')
 <script type="text/javascript">
-    $(function () {
-        $('#datetimepicker1').datetimepicker();
-    });
+    var date = new Date();
+    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+    var optComponent = {
+        startDate: today,
+        format: 'dd/mm/yyyy',
+        container: '#datePicker',
+        orientation: 'auto top',
+        todayHighlight: true,
+        autoclose: true
+    };
+
+    // COMPONENT
+    $( '#datePicker' ).datepicker( optComponent );
+
+    $( '#datePicker' ).datepicker( 'setDate', today );
 </script>
 @endpush

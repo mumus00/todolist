@@ -44,6 +44,18 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="dateline" class="col-md-4 control-label">Deadline</label>
+                            <div class="col-md-6">
+                                <div class='input-group date' id='datePicker'>
+                                    <input type='text' class="form-control" name="dateline" required/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Tambah
@@ -57,3 +69,23 @@
     </div>
 </div>
 @endsection
+@push('script')
+<script type="text/javascript">
+    var date = new Date();
+    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+    var optComponent = {
+        startDate: today,
+        format: 'dd/mm/yyyy',
+        container: '#datePicker',
+        orientation: 'auto top',
+        todayHighlight: true,
+        autoclose: true
+    };
+
+    // COMPONENT
+    $( '#datePicker' ).datepicker( optComponent );
+
+    $( '#datePicker' ).datepicker( 'setDate', today );
+</script>
+@endpush

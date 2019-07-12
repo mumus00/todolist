@@ -52,9 +52,18 @@
                                     <span class="input-group-btn">
                                         <span class="btn btn-default btn-file">
                                             Browse...
-                                            <input name="image" type="file" id="image">
+                                            <input name="image" type="file" id="image" class="@error('image') is-invalid @enderror">
                                         </span>
                                     </span>
+                                    @error('image')
+                                    <span style="height:100%;width:100%;margin-left:5px;margin-top:50px;">
+                                        File format should be
+                                        <i style="color:red">
+                                            *jpg,jpeg,png
+                                        </i>
+                                    </span>
+                                    @enderror
+
                                 </div>
                             </div>
                         </div>

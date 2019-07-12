@@ -4,6 +4,8 @@ Route::resource('todos', 'JobController');
 Route::post('todos/search', 'JobController@search')->name('todos.search');
 Route::get('todos/ambil/{id}', 'JobController@ambil')->name('todos.ambil');
 Route::get('mytodo/{id}','JobController@show')->name('todos.mytodo');
+Route::get('mytodo/{id_user}/edit/{id_job}','JobController@editMytodo')->name('todos.mytodo.edit');
+Route::put('mytodo/{id_job}','JobController@updateMytodo')->name('todos.mytodo.update');
 Route::get('done/{id}','JobController@done')->name('todos.done');
 
 //manajemen project
@@ -24,6 +26,7 @@ Route::get('programmers/todos/{id_job}/edit', 'JobController@editByUser')->name(
 Route::put('programmers/todos/{id_job}', 'JobController@updateByUser')->name('byUser.update');
 Route::delete('programmers/todos/{id_job}', 'JobController@destroyByUser')->name('byUser.destroy');
 
+Route::get('programmers/reset/{id}','UserController@reset')->name('programmers.reset');
 Route::get('changePassword','UserController@editPassword')->name('user.editPass');
 Route::post('changePassword','UserController@updatePassword')->name('user.updatePass');
 Route::get('profil','UserController@editProfile')->name('profil.edit');
@@ -36,4 +39,8 @@ Route::get('/', function(){
 });
 Route::get('register', function(){
 	return redirect('/');
+});
+
+Route::get('/datePicker', function(){
+    return view('datepicker');
 });

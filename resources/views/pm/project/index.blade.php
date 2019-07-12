@@ -48,7 +48,7 @@
         <tr>
             <td colspan="6">
                 <div class="alert alert-warning text-center mb0">
-                    <p>No Data</p>
+                    <p>Data Not Found</p>
                 </div>
             </td>
         </tr>

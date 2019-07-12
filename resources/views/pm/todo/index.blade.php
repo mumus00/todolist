@@ -6,19 +6,32 @@
 @endpush
 @section('content')
 <div class="row" style="margin-bottom:20px;">
-    <div class="col-md-5">
+    <div class="col-md-7">
         <form class="form-inline" action=" {{ route('todos.search') }} " method="POST">
             @csrf
-            <div class="input-group">
-                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
-                    aria-label="Search" name="search">
-                <div class="input-group-btn">
-                    <button class="btn btn-primary" type="submit"> {{ __('Search') }} </button>
+            <div class="form-group">
+                <input class="form-control form-control-sm mr-3 w-75" type="text"
+                placeholder="User/Project/Todo" aria-label="Search" name="search">
+            </div>
+
+            <div class="form-group">
+                <div class='input-group date' id='datePicker'>
+                    <input type='text' class="form-control" name="dateline" placeholder="Dateline"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
+            </div>
+
+            <div class="form-group">
+                    <button class="btn btn-primary" type="submit"> {{ __('Search') }} </button>
+
             </div>
         </form>
     </div>
-    <div class="col-md-5"></div>
+    <div class="col-md-3">
+
+    </div>
     <div class="col-md-2">
         <a class="btn btn-app-blue" href=" {{ route('todos.create') }} ">Add To Do</a>
     </div>
@@ -32,8 +45,8 @@
             <th class="text-center" style="border-top:2px solid #eee;">To Do</th>
             <th class="text-center" style="border-top:2px solid #eee;">Programmer</th>
             <th class="text-center" style="border-top:2px solid #eee;">Progress</th>
-            <th class="text-center" style="border-top:2px solid #eee;">Created_at</th>
-            <th class="text-center" style="border-top:2px solid #eee;">Dateline</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Posted</th>
+            <th class="text-center" style="border-top:2px solid #eee;">Deadline</th>
             <th class="text-center" style="border-top:2px solid #eee;">Aksi</th>
         </tr>
     </thead>
@@ -49,13 +62,9 @@
             <td class="text-center">{{$job->user->name}}</td>
             @endif
 
-            @if($job->confirmed == 1)
-            <td class="text-center">Clear</td>
-            @else
-            <td class="text-center">Not yet</td>
-            @endif
+            <td class="text-center"> {{ $job->status }} </td>
             <td class="text-center">{{ $job->created_at->format('d/m/Y') }}</td>
-            <td class="text-center">date</td>
+            <td class="text-center">{{ $job->dateline }}</td>
             <td class="text-center" style="display: flex;justify-content:center">
                 <table>
                     <tr>
@@ -71,15 +80,20 @@
                                 <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                             </form>
                         </td>
+                        <td>
+                            <a href="{{ route('todos.ambil', $job->id) }}" class="btn btn-sm btn-primary" title="Ambil">
+                                Ambil
+                            </a>
+                        </td>
                     </tr>
                 </table>
             </td>
         </tr>
         @empty
         <tr>
-            <td colspan="6">
+            <td colspan="12">
                 <div class="alert alert-warning text-center mb0">
-                    <p>No Data</p>
+                    <p>Data Not Found</p>
                 </div>
             </td>
         </tr>
@@ -90,3 +104,20 @@
     {{ $jobs->links() }}
 </div>
 @endsection
+@push('script')
+<script type="text/javascript">
+    var date = new Date();
+    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+    var optComponent = {
+        format: 'dd/mm/yyyy',
+        container: '#datePicker',
+        orientation: 'auto bottom',
+        todayHighlight: true,
+        autoclose: true
+    };
+
+    // COMPONENT
+    $('#datePicker').datepicker(optComponent);
+</script>
+@endpush
