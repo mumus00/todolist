@@ -80,11 +80,11 @@
     var date = new Date();
     var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
-    var tanggal = new Date({!! json_encode($job->dateline, JSON_HEX_TAG) !!});
+    // var tanggal = new Date({!! json_encode($job->dateline, JSON_HEX_TAG) !!});
 
-    if(tanggal < today){
-        today = tanggal;
-    }
+    // if(tanggal < today){
+    //     today = tanggal;
+    // }
 
     var optComponent = {
         startDate: today,

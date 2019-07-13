@@ -1,9 +1,4 @@
 @extends('layouts.dashboard')
-@push('styles')
-<style>
-    th {}
-</style>
-@endpush
 @section('content')
 <div class="row" style="margin-bottom:20px;">
     <div class="col-md-7">

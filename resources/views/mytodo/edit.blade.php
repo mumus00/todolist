@@ -4,7 +4,7 @@
     <div class="row" style="display: flex; justify-content: center;">
         <div class="col-md-8">
             <div class="card" style="padding-bottom:5px;">
-                <div class="card-header"> Edit Todo </div>
+                <div class="card-header"> Edit To Do </div>
                 <div class="card-body" style="border-top:2px solid #eee; padding-top:20px;">
                     <form class="form-horizontal" action=" {{ route('todos.mytodo.update', $job->id) }} " method="POST">
                         {{ csrf_field() }}

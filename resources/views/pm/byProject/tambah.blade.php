@@ -5,7 +5,7 @@
     <div class="row" style="display: flex; justify-content: center;">
         <div class="col-md-8">
             <div class="card" style="padding-bottom:5px;">
-                <div class="card-header">Tambah Detail Project {{$project->name}}</div>
+                <div class="card-header">Tambah To Do Project {{$project->name}}</div>
                 <div class="card-body" style="border-top:2px solid #eee; padding-top:20px;">
                     <form class="form-horizontal" method="POST" action="{{ route('byProject.store',$project->id) }}">
                         {{ csrf_field() }}

@@ -279,7 +279,8 @@ class JobController extends Controller
 
     public function updateMytodo(Request $request, $id_job){
         $job = Job::find($id_job);
-        $today = Carbon::now();
+        $today = Carbon::now()->format('d/m/Y');
+
         if($request->status != 'Open'){
             if($request->status == 'Clear'){
                 if($today > $job->dateline){
