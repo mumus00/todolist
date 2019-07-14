@@ -23,7 +23,7 @@ class JobController extends Controller
             $jobs = Job::orderBy('project_id')->orderBy('name')->paginate(5);
             return view('pm.todo.index', compact('jobs'));
         }else{
-            $jobs = Job::where('user_id',0)->where('status','Open')->paginate(5);
+            $jobs = Job::where('status','Open')->paginate(5);
             return view('pro.index',compact('jobs'));
         }
     }
@@ -69,24 +69,31 @@ class JobController extends Controller
         $job = Job::where('id',$id)->first();
         $programmers = User::all();
         $projects = Project::all();
-
-        return view('pm.todo.edit',compact('job','programmers','projects'));
+        // dd($job);
+        return view('pm.todo.edit', compact('job','programmers','projects'));
     }
 
     public function update(Request $request, $id)
     {
+        $job = Job::find($id);
         if($request->programmer == 0){
             $status = "Open";
         }else{
             $status = "To Do";
         }
 
-        $job = Job::find($id);
+        if($request->dateline == null){
+            $deadline = $job->dateline;
+        }else{
+            $deadline = $request->dateline;
+        }
+
+
         $job->name = $request->todo;
         $job->status = $status;
         $job->project_id = $request->project;
         $job->user_id = $request->programmer;
-        $job->dateline = $request->dateline;
+        $job->dateline = $deadline;
         $job->save();
 
         return redirect('/todos');
@@ -100,7 +107,8 @@ class JobController extends Controller
         return redirect('/todos');
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $search = $request->search;
 
         if($request->dateline != null){
@@ -134,19 +142,22 @@ class JobController extends Controller
     }
 
     //Todo Berdasarkan Project
-    public function showByProject($id){
+    public function showByProject($id)
+    {
         $project = Project::find($id);
         $jobs = Job::where('project_id',$id)->paginate(5);
         return view('pm.byProject.index', compact('jobs','project'));
     }
 
-    public function createByProject($id){
+    public function createByProject($id)
+    {
         $programmers = User::all();
         $project = Project::find($id);
         return view('pm.byProject.tambah', compact('project','programmers'));
     }
 
-    public function storeByProject(Request $request, $id){
+    public function storeByProject(Request $request, $id)
+    {
         if($request->programmer == 0){
             $status = "Open";
         }else{
@@ -165,32 +176,41 @@ class JobController extends Controller
         return redirect()->route('byProject.show',$id);
     }
 
-    public function editByProject($id){
+    public function editByProject($id)
+    {
         $job = Job::find($id);
         $project = Project::find($job->project_id);
         $programmers = User::all();
         return view('pm.byProject.edit', compact('job','project','programmers'));
     }
 
-    public function updateByProject(Request $request, $id){
+    public function updateByProject(Request $request, $id)
+    {
+        $job = Job::find($id);
         if($request->programmer == 0){
             $status = "Open";
         }else{
             $status = "To Do";
         }
 
-        $job = Job::find($id);
+        if($request->dateline == null){
+            $deadline = $job->dateline;
+        }else{
+            $deadline = $request->dateline;
+        }
+
         $job->name = $request->todo;
         $job->project_id = $request->project;
         $job->user_id = $request->programmer;
         $job->status = $status;
-        $job->dateline = $request->dateline;
+        $job->dateline = $deadline;
         $job->save();
 
         return redirect()->route('byProject.show',$request->project);
     }
 
-    public function destroyByProject($id){
+    public function destroyByProject($id)
+    {
         $job = Job::find($id);
         $project = Project::find($job->project_id);
         $job->delete();
@@ -198,19 +218,22 @@ class JobController extends Controller
     }
 
     //Todo Berdasarkan Project
-    public function showByUser($id){
+    public function showByUser($id)
+    {
         $user = User::find($id);
         $jobs = Job::where('user_id',$id)->paginate(5);
         return view('pm.byUser.index', compact('jobs','user'));
     }
 
-    public function createByUser($id){
+    public function createByUser($id)
+    {
         $programmer = User::find($id);
         $projects = Project::all();
         return view('pm.byUser.tambah', compact('projects','programmer'));
     }
 
-    public function storeByUser(Request $request, $id){
+    public function storeByUser(Request $request, $id)
+    {
         if($request->programmer == 0){
             $status = "Open";
         }else{
@@ -229,39 +252,49 @@ class JobController extends Controller
         return redirect()->route('byUser.show',$id);
     }
 
-    public function editByUser($id){
+    public function editByUser($id)
+    {
         $job = Job::find($id);
         $projects = Project::all();
         $programmer = User::find($job->user_id);
         return view('pm.byUser.edit', compact('job','projects','programmer'));
     }
 
-    public function updateByUser(Request $request, $id){
+    public function updateByUser(Request $request, $id)
+    {
+        $job = Job::find($id);
         if($request->programmer == 0){
             $status = "Open";
         }else{
             $status = "To Do";
         }
 
-        $job = Job::find($id);
+        if($request->dateline == null){
+            $deadline = $job->dateline;
+        }else{
+            $deadline = $request->dateline;
+        }
+
         $job->name = $request->todo;
         $job->project_id = $request->project;
         $job->user_id = $request->programmer;
         $job->status = $status;
-        $job->dateline = $request->dateline;
+        $job->dateline = $deadline;
         $job->save();
 
         return redirect()->route('byUser.show',$request->programmer);
     }
 
-    public function destroyByUser($id){
+    public function destroyByUser($id)
+    {
         $job = Job::find($id);
         $programmer = User::find($job->user_id);
         $job->delete();
         return redirect()->route('byUser.show',$programmer->id);
     }
 
-    public function ambil($id){
+    public function ambil($id)
+    {
         $id_user = Auth::User()->id;
         $job = Job::find($id);
         $job->user_id = $id_user;
@@ -271,37 +304,34 @@ class JobController extends Controller
         return redirect()->route('todos.index');
     }
 
-    public function editMytodo($id_user, $id_job){
+    public function editMytodo($id_user, $id_job)
+    {
         $job = Job::where('user_id',$id_user)->where('id',$id_job)->first();
 
         return view('mytodo.edit', compact('job'));
     }
 
-    public function updateMytodo(Request $request, $id_job){
+    public function updateMytodo(Request $request, $id_job)
+    {
         $job = Job::find($id_job);
-        $today = Carbon::now();
-        if($request->status != 'Open'){
-            if($request->status == 'Clear'){
-                if($today > $job->dateline){
-                    $status = "Finished Late";
-                }else{
-                    $status = "Finished On Time";
-                }
-                $job->update([
-                    'status' => $status,
-                ]);
+        $today = Carbon::yesterday()->format('Y/m/d');
+        $tanggal = explode('/',$job->dateline);
+        $deadline = $tanggal[2].'/'.$tanggal[1].'/'.$tanggal[0];
+        // dd($deadline);
+        if($request->status == 'Clear'){
+            if($today > $deadline){
+                $status = "Finished Late";
             }else{
-                $job->update([
-                    'status' => $request->status,
-                ]);
+                $status = "Finished On Time";
             }
+            $job->update([
+                'status' => $status,
+            ]);
         }else{
             $job->update([
                 'status' => $request->status,
-                'user_id' => 0,
             ]);
         }
-
         return redirect()->route('todos.mytodo',auth()->user()->id);
     }
 }

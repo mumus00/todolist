@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Auth;
 use App\User;
 use App\Job;
-use Illuminate\Support\Facades\Storage;
-use File;
+// use Illuminate\Support\Facades\Storage;
+// use File;
 
 class UserController extends Controller
 {

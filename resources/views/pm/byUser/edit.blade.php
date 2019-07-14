@@ -46,7 +46,7 @@
                             <label for="dateline" class="col-md-4 control-label">Deadline</label>
                             <div class="col-md-6">
                                 <div class='input-group date' id='datePicker'>
-                                    <input type='text' class="form-control" name="dateline" required/>
+                                    <input type='text' class="form-control" name="dateline"/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
