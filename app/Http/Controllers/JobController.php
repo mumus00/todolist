@@ -20,7 +20,7 @@ class JobController extends Controller
     public function index()
     {
         if(Auth::User()->isAdmin()){
-            $jobs = Job::orderBy('project_id')->orderBy('name')->paginate(5);
+            $jobs = Job::where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(5);
             return view('pm.todo.index', compact('jobs'));
         }else{
             $jobs = Job::where('status','Open')->paginate(5);
@@ -56,17 +56,17 @@ class JobController extends Controller
         return redirect('/todos');
     }
 
-    public function show($id)
+    public function show()
     {
-        $jobs = Job::where('user_id', $id)
-        ->orderBy('status')->paginate(5);
+        $jobs = Job::where('user_id', auth()->user()->id)
+        ->orderBy('status')->paginate(10);
 
         return view('mytodo.index', compact('jobs'));
     }
 
     public function edit($id)
     {
-        $job = Job::where('id',$id)->first();
+        $job = Job::where('id',$id)->firstOrFail();
         $programmers = User::all();
         $projects = Project::all();
         // dd($job);
@@ -112,7 +112,6 @@ class JobController extends Controller
         $search = $request->search;
 
         if($request->dateline != null){
-
             if($search != null){
                 $jobs = Job::where('dateline','like',$request->dateline)
                     ->where(function($q) use($search){
@@ -122,33 +121,30 @@ class JobController extends Controller
                         })->orWhereHas('user', function($user) use($search) {
                             $user->where('name', 'like', '%'.$search.'%');
                           });
-                    })->orderBy('name')->paginate(5);
+                    })->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(25);
             }else{
-                $jobs = Job::where('dateline',$request->dateline)->paginate(5);
+                $jobs = Job::where('dateline',$request->dateline)->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(25);
             }
         }else{
             if($search != null){
-                $jobs = Job::orWhereHas('project', function($project) use($search) {
-                    $project->where('name', 'like', '%'.$search.'%');
-                  })->orWhereHas('user', function($user) use($search) {
-                    $user->where('name', 'like', '%'.$search.'%');
-                  })->orWhere('name', 'like', '%'.$search.'%')->orderBy('name')->paginate(5);
+                $jobs = Job::where(function($q) use($search){
+                    $q->where('name', 'like', '%'.$search.'%')
+                    ->orWhereHas('project', function($project) use($search){
+                        $project->where('name', 'like', '%'.$search.'%');
+                    })->orWhereHas('user', function($user) use($search) {
+                        $user->where('name', 'like', '%'.$search.'%');
+                      });
+                })->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(25);
             }else{
-                $jobs = Job::paginate(5);
+                return redirect()->route('todos.index');
             }
         }
 
+        //$jobs->appends($request->all());
         return view('pm.todo.index', compact('jobs'));
     }
 
     //Todo Berdasarkan Project
-    public function showByProject($id)
-    {
-        $project = Project::find($id);
-        $jobs = Job::where('project_id',$id)->paginate(5);
-        return view('pm.byProject.index', compact('jobs','project'));
-    }
-
     public function createByProject($id)
     {
         $programmers = User::all();
@@ -173,7 +169,7 @@ class JobController extends Controller
         ]);
         $job->save();
 
-        return redirect()->route('byProject.show',$id);
+        return redirect()->route('projects.show',$id);
     }
 
     public function editByProject($id)
@@ -206,7 +202,7 @@ class JobController extends Controller
         $job->dateline = $deadline;
         $job->save();
 
-        return redirect()->route('byProject.show',$request->project);
+        return redirect()->route('projects.show',$request->project);
     }
 
     public function destroyByProject($id)
@@ -214,7 +210,7 @@ class JobController extends Controller
         $job = Job::find($id);
         $project = Project::find($job->project_id);
         $job->delete();
-        return redirect()->route('byProject.show',$project->id);
+        return redirect()->route('projects.show',$project->id);
     }
 
     //Todo Berdasarkan Project
@@ -304,9 +300,9 @@ class JobController extends Controller
         return redirect()->route('todos.index');
     }
 
-    public function editMytodo($id_user, $id_job)
+    public function editMytodo($id_job)
     {
-        $job = Job::where('user_id',$id_user)->where('id',$id_job)->first();
+        $job = Job::where('id',$id_job)->first();
 
         return view('mytodo.edit', compact('job'));
     }
@@ -328,9 +324,16 @@ class JobController extends Controller
                 'status' => $status,
             ]);
         }else{
-            $job->update([
-                'status' => $request->status,
-            ]);
+            if($request->status != 'Open') {
+                $job->update([
+                    'status' => $request->status,
+                ]);
+            }else{
+                $job->update([
+                    'status' => $request->status,
+                    'user_id' => 0,
+                ]);
+            }
         }
         return redirect()->route('todos.mytodo',auth()->user()->id);
     }

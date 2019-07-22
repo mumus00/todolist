@@ -24,7 +24,7 @@
         @forelse($projects as $project)
         <tr>
             <td class="text-center">{{$loop->iteration}}</td>
-            <td class="text-center"><a href="{{ route('byProject.show',$project->id) }}">{{$project->name}}</a></td>
+            <td class="text-center"><a href="{{ route('projects.show',$project->id) }}">{{$project->name}}</a></td>
             <td class="text-center" style="display: flex;justify-content:center">
                 <table>
                     <tr>

@@ -45,8 +45,9 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::find(auth()->user()->id);
-        return view('profile.index',compact('user'));
+        $user = User::find($id);
+        $jobs = Job::where('user_id',$id)->paginate(5);
+        return view('pm.byUser.index', compact('jobs','user'));
     }
 
     public function edit($id)
@@ -96,11 +97,6 @@ class UserController extends Controller
         return redirect()->back()->with("success","Password changed successfully !");
     }
 
-    public function editProfile(){
-        $user = User::find(auth()->user()->id);
-        return view('profile.index',compact('user'));
-    }
-
     public function updateProfile(Request $request){
         $request->validate([
             'image' => 'mimes:jpeg,jpg,png',
@@ -126,5 +122,11 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('programmers.index');
+    }
+
+    public function profile()
+    {
+        $user = User::find(auth()->user()->id);
+        return view('profile.index',compact('user'));
     }
 }

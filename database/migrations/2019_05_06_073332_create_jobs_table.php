@@ -15,10 +15,13 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->boolean('confirmed')->default(0);
+            $table->string('status')->nullable();
             $table->string('name');
-            $table->bigInteger('project_id');
-            $table->bigInteger('user_id');
+            $table->string('dateline')->nullable();
+            $table->unsignedBigInteger('project_id');
+            $table->foreign('project_id')->references('id')->on('projects');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

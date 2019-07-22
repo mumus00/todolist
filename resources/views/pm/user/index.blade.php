@@ -21,7 +21,7 @@
         @forelse($programmers as $programmer)
         <tr>
             <td class="text-center">{{$loop->iteration}}</td>
-            <td class="text-center"><a href="{{ route('byUser.show',$programmer->id) }}">{{$programmer->name}}</a></td>
+            <td class="text-center"><a href="{{ route('programmers.show',$programmer->id) }}">{{$programmer->name}}</a></td>
             <td class="text-center">
                 @if($programmer->role==1)
                 Project Manager

@@ -61,7 +61,7 @@
                             </li>
                             @endif
                             <li class="nav-item {{ Request::is('mytodo*') ? 'active' : '' }}">
-                                <a href="/mytodo/{{auth()->user()->id}}"><i class="ion-ios-contact"></i>My To Do</a>
+                                <a href="/mytodo"><i class="ion-ios-contact"></i>My To Do</a>
                             </li>
                             <li class="nav-item {{ Request::is('changePassword*') ? 'active' : '' }}">
                                 <a href=" {{ route('user.editPass') }} "><i class="ion-ios-redo"></i>Change Password</a>

@@ -20,7 +20,7 @@
             <td class="text-center">{{$job->name}}</td>
             <td class="text-center"> {{$job->status}} </td>
             <td class="text-center"> {{$job->dateline}} </td>
-            <td class="text-center"><a href=" {{ route('todos.mytodo.edit', [auth()->user()->id, $job->id]) }} " class="btn btn-primary">Change Progress</a></td>
+            <td class="text-center"><a href=" {{ route('todos.mytodo.edit', $job->id) }} " class="btn btn-primary">Change Progress</a></td>
         </tr>
         @empty
         <tr>

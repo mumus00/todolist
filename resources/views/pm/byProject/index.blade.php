@@ -3,7 +3,7 @@
 @section('content')
 <div class="row" style="margin-bottom:20px;">
     <div class="col-md-10">
-        <h1 style="margin:0px;">{{$project->name}}</h1>
+        <h2 style="margin:0px;">{{$project->name}}</h2>
     </div>
     <div class="col-md-2">
         <a class="btn btn-app-blue" href="{{ route('byProject.create',$project->id) }}">Add To Do</a>

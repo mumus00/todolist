@@ -82,7 +82,7 @@
                         </td>
                         <td>
                             <a href="{{ route('todos.ambil', $job->id) }}" class="btn btn-sm btn-primary" title="Ambil">
-                                Ambil
+                                Take
                             </a>
                         </td>
                     </tr>

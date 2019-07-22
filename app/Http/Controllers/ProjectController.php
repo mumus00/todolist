@@ -37,7 +37,9 @@ class ProjectController extends Controller
 
     public function show($id)
     {
-        //
+        $project = Project::find($id);
+        $jobs = Job::where('project_id',$id)->paginate(5);
+        return view('pm.byProject.index', compact('jobs','project'));
     }
 
     public function edit($id)
