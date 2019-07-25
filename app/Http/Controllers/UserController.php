@@ -68,7 +68,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        User::find($id)->delete();
+        User::destroy($id);
         Job::where('user_id','=',$id)->update(['user_id' => 0]);
         return redirect()->route('programmers.index');
     }

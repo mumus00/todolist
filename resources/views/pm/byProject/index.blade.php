@@ -44,7 +44,7 @@
                             </a>
                         </td>
                         <td>
-                            <form id="delete-form" action="{{ route('byProject.destroy',$job->id) }}" method="POST">
+                            <form class="delete" action="{{ route('byProject.destroy',$job->id) }}" method="POST">
                                 @csrf
                                 @method("delete")
                                 <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -69,3 +69,13 @@
     {{ $jobs->links() }}
 </div>
 @endsection
+
+@push('script')
+<script>
+    $(document).ready(function(){
+        $(".delete").on("submit", function(){
+            return confirm("Are you sure to delete?")
+        })
+    })
+</script>
+@endpush

@@ -38,7 +38,7 @@
                             </a>
                         </td>
                         <td>
-                            <form id="delete-form" action=" {{ route('programmers.destroy',$programmer->id) }} "
+                            <form class="delete" action=" {{ route('programmers.destroy',$programmer->id) }} "
                                 method="POST">
                                 @csrf
                                 @method("delete")
@@ -69,3 +69,13 @@
     {{ $programmers->links() }}
 </div>
 @endsection
+
+@push('script')
+<script>
+    $(document).ready(function(){
+        $('.delete').on("submit",function(){
+            return confirm("Are you sure to delete this user?");
+        })
+    })
+</script>
+@endpush

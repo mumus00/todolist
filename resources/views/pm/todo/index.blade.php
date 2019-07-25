@@ -74,7 +74,7 @@
                             </a>
                         </td>
                         <td>
-                            <form id="delete-form" action="{{ route('todos.destroy',$job->id) }}" method="POST">
+                            <form class="delete" action="{{ route('todos.destroy',$job->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -106,18 +106,24 @@
 @endsection
 @push('script')
 <script type="text/javascript">
-    var date = new Date();
-    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    $(document).ready(function(){
+        var date = new Date();
+        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
-    var optComponent = {
-        format: 'dd/mm/yyyy',
-        container: '#datePicker',
-        orientation: 'auto bottom',
-        todayHighlight: true,
-        autoclose: true
-    };
+        var optComponent = {
+            format: 'dd/mm/yyyy',
+            container: '#datePicker',
+            orientation: 'auto bottom',
+            todayHighlight: true,
+            autoclose: true
+        };
 
-    // COMPONENT
-    $('#datePicker').datepicker(optComponent);
+        // COMPONENT
+        $('#datePicker').datepicker(optComponent);
+
+        $('.delete').on("submit",function(){
+            return confirm("Are you sure?");
+        })
+    })
 </script>
 @endpush

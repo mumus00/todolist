@@ -101,8 +101,7 @@ class JobController extends Controller
 
     public function destroy($id)
     {
-        $job = Job::find($id);
-        $job->delete();
+        Job::destroy($id);
 
         return redirect('/todos');
     }
