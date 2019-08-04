@@ -1,13 +1,8 @@
 @extends('layouts.dashboard')
-@push('styles')
-<style>
-    th {}
-</style>
-@endpush
 @section('content')
 <div class="row" style="margin-bottom:20px;">
     <div class="col-md-7">
-        <form class="form-inline" action=" {{ route('todos.search') }} ">
+        <form class="form-inline" action=" {{ route('todos.search') }}" method="POST">
             @csrf
             <div class="form-group">
                 <input class="form-control form-control-sm mr-3 w-75" type="text"

@@ -120,12 +120,12 @@ class JobController extends Controller
                         })->orWhereHas('user', function($user) use($search) {
                             $user->where('name', 'like', '%'.$search.'%');
                           });
-                    })->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(25);
+                    })->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(5);
 
-                    $jobs->appends($request->only('search','dateline'));
+                   // $jobs->appends($request->only('search','dateline'));
             }else{
-                $jobs = Job::where('dateline',$request->dateline)->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(25);
-                $jobs->appends($request->only('dateline'));
+                $jobs = Job::where('dateline',$request->dateline)->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(5);
+                //$jobs->appends($request->only('dateline'));
             }
         }else{
             if($search != null){
@@ -136,8 +136,8 @@ class JobController extends Controller
                     })->orWhereHas('user', function($user) use($search) {
                         $user->where('name', 'like', '%'.$search.'%');
                       });
-                })->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(25);
-                $jobs->appends($request->only('search'));
+                })->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(5);
+                //$jobs->appends($request->only('search'));
             }else{
                 return redirect()->route('todos.index');
             }
