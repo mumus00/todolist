@@ -13,11 +13,16 @@
     {{-- <link rel="stylesheet"
         href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" /> --}}
     <!-- AppUI CSS stylesheets -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap2.css') }}" />
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}" />
+    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
+    <script src=" {{ asset('js/jquery.js') }} "></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script> --}}
+    <script src=" {{ asset('js/bootstrap-datepicker.js') }} "></script>
+    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
+    <link rel="stylesheet" href=" {{ asset('css/font-awesome.min.css') }} ">
     <link rel="stylesheet" id="css-ionicons" href="{{ asset('css/ionicons.css') }}" />
     <link rel="stylesheet" id="css-bootstrap" href="{{ asset('css/bootstrap.css') }}" />
     <link rel="stylesheet" id="css-app" href="{{ asset('css/app2.css') }}" />
@@ -69,11 +74,6 @@
                         </ul>
                     </nav>
                     <!-- End drawer navigation -->
-                    <div class="drawer-footer">
-                        <p class="copyright">AppUI Template &copy;</p>
-                        <a href="https://shapebootstrap.net/item/1525731-appui-admin-frontend-template/?ref=rustheme"
-                            target="_blank" rel="nofollow">Purchase a license</a>
-                    </div>
                 </div>
                 <!-- End drawer scroll area -->
             </aside>

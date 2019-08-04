@@ -7,7 +7,7 @@
 @section('content')
 <div class="row" style="margin-bottom:20px;">
     <div class="col-md-7">
-        <form class="form-inline" action=" {{ route('todos.search') }} " method="POST">
+        <form class="form-inline" action=" {{ route('todos.search') }} ">
             @csrf
             <div class="form-group">
                 <input class="form-control form-control-sm mr-3 w-75" type="text"
@@ -111,6 +111,7 @@
         var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
         var optComponent = {
+            startDate: today,
             format: 'dd/mm/yyyy',
             container: '#datePicker',
             orientation: 'auto bottom',

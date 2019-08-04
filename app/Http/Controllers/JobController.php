@@ -59,7 +59,7 @@ class JobController extends Controller
     public function show()
     {
         $jobs = Job::where('user_id', auth()->user()->id)
-        ->orderBy('status')->paginate(10);
+        ->orderBy('status')->paginate(5);
 
         return view('mytodo.index', compact('jobs'));
     }
@@ -121,8 +121,11 @@ class JobController extends Controller
                             $user->where('name', 'like', '%'.$search.'%');
                           });
                     })->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(25);
+
+                    $jobs->appends($request->only('search','dateline'));
             }else{
                 $jobs = Job::where('dateline',$request->dateline)->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(25);
+                $jobs->appends($request->only('dateline'));
             }
         }else{
             if($search != null){
@@ -134,6 +137,7 @@ class JobController extends Controller
                         $user->where('name', 'like', '%'.$search.'%');
                       });
                 })->where('user_id','not like',auth()->user()->id)->orderBy('project_id')->paginate(25);
+                $jobs->appends($request->only('search'));
             }else{
                 return redirect()->route('todos.index');
             }

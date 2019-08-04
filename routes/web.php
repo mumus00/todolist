@@ -1,7 +1,7 @@
 <?php
 // manajemen job
 Route::resource('todos', 'JobController');
-Route::post('todos/search', 'JobController@search')->name('todos.search');
+Route::get('todos/search', 'JobController@search')->name('todos.search');
 Route::get('todos/ambil/{id}', 'JobController@ambil')->name('todos.ambil');
 Route::get('mytodo','JobController@show')->name('todos.mytodo');
 Route::get('mytodo/{id_job}/edit','JobController@editMytodo')->name('todos.mytodo.edit');
